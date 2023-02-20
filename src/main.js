@@ -3,6 +3,7 @@ const { default: helmet } = require('helmet') //Dùng để  bảo mật khi ch�
 const app = express()
 const morgan = require('morgan')
 const compression = require('compression')
+const io =require('socket.io')
 //inint middlewares
 app.use(morgan("dev"))//In ra log khi chạy requets :  (dev , compile, common ...)
 app.use(helmet())
