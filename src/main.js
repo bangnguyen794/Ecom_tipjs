@@ -11,7 +11,13 @@ global.__basedir = __dirname;
 app.use(morgan("dev"))//In ra log khi chạy requets :  (dev , compile, common ...)
 const path = require('path')
 app.use('/public', express.static(path.join(__dirname, 'public')))
-app.use(helmet())
+app.use(helmet.contentSecurityPolicy({
+    directives:{
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "script-src": ["'self'", "cdnjs.cloudflare.com"],  //Cho phép đọc link này
+        "script-src-attr": ["'none'"] //Chon phép sử dụng   JavaScript trực tiếp trong HTML bằng cách sử dụng thuộc tính "on" như "onclick" hoặc "onload"
+    }
+}))
 app.use(compression());
 app.use(express.json())
 //app.use(morgan("compile")); //danh cho che do products

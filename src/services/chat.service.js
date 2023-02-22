@@ -1,12 +1,13 @@
 class SocketService {
         connection(socket){
-            socket.on('disconnection',()=>{
+            let id =socket.id;
+            socket.on('disconnect',()=>{
                 console.log(`Dissconnect is:: ${socket.id}`);
             })
 
             socket.on('sendms', ms =>{
                 console.log(`ms is:: ${ms}`);
-                _io.emit('sendms',ms);
+                _io.emit('sendms', {id:id,ms : ms});
             })
         }
 }
