@@ -23,7 +23,20 @@ app.use(express.json())
 //app.use(morgan("compile")); //danh cho che do products
 
 // init db
-
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://sa:bangnguyen@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+    
+    if (err) {
+        console.log(err);
+        return;
+      }
+      console.log('Da connect db _ mongo');
+  //const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 // init routers
 app.use(require('../src/routers/chat.router'))
 
