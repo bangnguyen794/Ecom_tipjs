@@ -1,7 +1,7 @@
-const app = require("./src/main");
-const port =2023;
+const http = require("./src/main");
+const port = process.env.PORT||3001;
 
-const server =  app.listen(port,()=>{
+const server =  http.listen(port,()=>{
     console.log(`run: ${port}`);
 });
 process.on('SIGINT',()=>{
