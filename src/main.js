@@ -5,7 +5,18 @@ const app = express()
 const mongoose = require('mongoose')
 const { default: helmet } = require('helmet') //Dùng để  bảo mật khi chạy 1 request
 global.__basedir = __dirname;
-
+/*
+*
+*
+*
+*/
+//Config env
+require('./configs/env.config')
+/*
+*
+*
+*
+*/
 //inint middlewares
 app.use(morgan("dev"))//In ra log khi chạy requets :  (dev , compile, common ...)
 const path = require('path')
@@ -27,13 +38,20 @@ app.use(express.json())
 */
 // init routers
 app.use(require('../src/routers/chat.router'))
-
+/*
+*
+*
+*
+*/
 // init db
 require('./dbs/init.mongodb') 
-
 const { checkOverload }  = require('./helpers/check.connect')
 checkOverload();
-
+/*
+*
+*
+*
+*/
 //socket io
 const http = require('http').Server(app)
 const io =require('socket.io')(http)

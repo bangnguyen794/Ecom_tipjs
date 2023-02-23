@@ -2,7 +2,8 @@
 
 const mongoose  = require("mongoose")
 const {countConnection} = require('../helpers/check.connect')
-const stringConnect = "mongodb+srv://sa:bangnguyen@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority";
+
+const stringConnect = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.set('strictQuery', true);
 class Database {
     constructor(){
