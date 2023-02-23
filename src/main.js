@@ -2,10 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
+const mongoose = require('mongoose')
 const { default: helmet } = require('helmet') //Dùng để  bảo mật khi chạy 1 request
 global.__basedir = __dirname;
-
-
 
 //inint middlewares
 app.use(morgan("dev"))//In ra log khi chạy requets :  (dev , compile, common ...)
@@ -21,31 +20,25 @@ app.use(helmet.contentSecurityPolicy({
 app.use(compression());
 app.use(express.json())
 //app.use(morgan("compile")); //danh cho che do products
-
-// init db
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://sa:bangnguyen@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-    
-    if (err) {
-        console.log(err);
-        return;
-      }
-      console.log('Da connect db _ mongo');
-  //const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+/*
+*
+*
+*
+*/
 // init routers
 app.use(require('../src/routers/chat.router'))
 
+// init db
+require('./dbs/init.mongodb') 
+
+const { checkOverload }  = require('./helpers/check.connect')
+checkOverload();
+
+//socket io
 const http = require('http').Server(app)
 const io =require('socket.io')(http)
 const SocketService = require('./services/chat.service');
-
 global._io = io;
-
 global._io.on('connection',SocketService.connection)
 //handding error
 
