@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
@@ -11,7 +12,7 @@ global.__basedir = __dirname;
 *
 */
 //Config env
-require('./configs/env.config')
+//require('./configs/env.config')
 /*
 *
 *
