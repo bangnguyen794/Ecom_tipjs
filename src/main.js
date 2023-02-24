@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const { default: helmet } = require('helmet') //Dùng để  bảo mật khi chạy 1 request
 global.__basedir = __dirname;
 /*
@@ -57,6 +57,11 @@ const http = require('http').Server(app)
 const io =require('socket.io')(http)
 const SocketService = require('./services/chat.service');
 global._io = io;
+// Middlewaer:  xử lý kết nối trước khi next();
+global._io.use((socket,next)=>{
+    console.log(`Soket_id  ${socket.id}`)
+    next();
+})
 global._io.on('connection',SocketService.connection)
 //handding error
 
