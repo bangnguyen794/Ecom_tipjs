@@ -59,8 +59,13 @@ const SocketService = require('./services/chat.service');
 global._io = io;
 // Middlewaer:  xử lý kết nối trước khi next();
 global._io.use((socket,next)=>{
+    const {token} = socket.handshake.headers;
+    console.log(token);
+    if(token=="bangnguyen"){
+        next();
+    }
     console.log(`Soket_id  ${socket.id}`)
-    next();
+   
 })
 global._io.on('connection',SocketService.connection)
 //handding error

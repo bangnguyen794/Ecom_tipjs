@@ -1,4 +1,11 @@
-let socket = io();
+let socket = io({
+    extraHeaders:{
+        token:'bangnguyen1'
+    }
+});
+socket.on('connect_error',(err)=>{
+    console.log(`Error soket io ${err.message}`)
+})
 // var chat = document.getElementById('txt_chat');
 // console.log(chat);
 // var btn_submit = document.getElementById('btn_submit');
@@ -6,12 +13,11 @@ function myFunction(){
     //var ms = document.getElementById('txt_chat').value;
     //socket.emit('sendms', ms);
     alert('okeee');
-
 }
 
 $("#btn_submit").on('click',()=>{
     let ms =$('#txt_chat').val();
-    console.log(ms);
+    //console.log(ms);
     if(ms==undefined) return;
     socket.emit('sendms', ms);
 });
