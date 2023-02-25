@@ -20,6 +20,9 @@ const dev = {
         name:process.env.DEV_DB_NAME || 'Shopro',
         use:process.env.DEV_DB_USER ,
         pass:process.env.DEV_DB_PASSWORD 
+    },
+    jwt:{
+        secretKey: process.env.DEV_SECRETKEY
     }
 }
 const pro = {
@@ -33,9 +36,12 @@ const pro = {
         use:process.env.PRO_DB_USER ,
         pass:process.env.PRO_DB_PASSWORD 
 
+    },
+    jwt:{
+        secretKey: process.env.PRO_SECRETKEY
     }
 }
 
-const config ={dev,pro}
+const config ={dev,pro, jwt}
 const env = process.env.NODE_ENV ||'dev'
 module.exports = config[env];

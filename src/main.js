@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
+
 //const mongoose = require('mongoose')
 const { default: helmet } = require('helmet') //Dùng để  bảo mật khi chạy 1 request
 global.__basedir = __dirname;
@@ -39,6 +40,8 @@ app.use(express.json())
 */
 // init routers
 app.use(require('../src/routers/chat.router'))
+app.use(require('../src/routers/login.router'))
+
 /*
 *
 *

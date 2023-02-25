@@ -2,7 +2,6 @@
 
 const mongoose  = require("mongoose")
 const {db:{host,port,use,pass}} = require('../configs/env.config')
-console.log('env:'+use+': ' + pass);
 const stringConnect = `mongodb+srv://${use}:${pass}@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.set('strictQuery', true);
 class Database {
