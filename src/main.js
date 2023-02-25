@@ -49,6 +49,28 @@ app.use(require('../src/routers/login.router'))
 */
 // init db
 require('./dbs/init.mongodb') 
+
+const User = require('./models/users.model')
+
+const new_user = new User({
+    use:'bangnguyen',
+    pass:'123123',
+    name:'1',
+    phone:'036674618',
+
+});
+//console.log(new_user);
+new_user.validate((error)=>{
+    
+    if(error){
+        console.log('Lỗi validate:: ', error.errors);
+    }else{
+        new_user.save().then(()=>{
+                console.log('User saved');
+        }).catch(err=> console.log('erro save:: '+err))   
+    }
+})
+
 const { checkOverload }  = require('./helpers/check.connect')
 checkOverload();
 /*

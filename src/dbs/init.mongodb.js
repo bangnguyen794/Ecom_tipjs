@@ -1,8 +1,8 @@
 'user stress '
 
 const mongoose  = require("mongoose")
-const {db:{host,port,use,pass}} = require('../configs/env.config')
-const stringConnect = `mongodb+srv://${use}:${pass}@cluster0.kojomqx.mongodb.net/?retryWrites=true&w=majority`;
+const {db:{host,port,use,pass,name}} = require('../configs/env.config')
+const stringConnect = `${host}://${use}:${pass}@cluster0.kojomqx.mongodb.net/${name}?retryWrites=true&w=majority`;
 mongoose.set('strictQuery', true);
 class Database {
     constructor(){
