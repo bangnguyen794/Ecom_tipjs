@@ -1,9 +1,9 @@
-require('dotenv').config();
+//require('dotenv').config();
 const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
+const cookieParser = require('cookie-parser');
 const app = express()
-
 //const mongoose = require('mongoose')
 const { default: helmet } = require('helmet') //Dùng để  bảo mật khi chạy 1 request
 global.__basedir = __dirname;
@@ -30,8 +30,10 @@ app.use(helmet.contentSecurityPolicy({
         "script-src-attr": ["'none'"] //Chon phép sử dụng   JavaScript trực tiếp trong HTML bằng cách sử dụng thuộc tính "on" như "onclick" hoặc "onload"
     }
 }))
-app.use(compression());
+app.use(compression())
 app.use(express.json())
+app.use(cookieParser())
+
 //app.use(morgan("compile")); //danh cho che do products
 /*
 *
@@ -42,6 +44,12 @@ app.use(express.json())
 app.use(require('../src/routers/chat.router'))
 app.use(require('../src/routers/login.router'))
 
+const {setCookie,deleteCookie}  = require('./helpers/cookie.helper')
+// Khởi tạo cookie
+// app.get('/setcookie', (req, res) => {
+//     const issetCookie =  setCookie(res,'key_cook', 'vanbang',900000);
+//     res.send(issetCookie?'set Cookie success':'set Cookie fail');
+//   });
 /*
 *
 *
@@ -50,26 +58,35 @@ app.use(require('../src/routers/login.router'))
 // init db
 require('./dbs/init.mongodb') 
 
-const User = require('./models/users.model')
+const User = require('./models/users.model');
 
 const new_user = new User({
-    use:'bangnguyen',
-    pass:'123123',
-    name:'1',
-    phone:'036674618',
+    use:'bangnguyen2',
+    pass:'',
+    name:'Văn bằng',
+    phone:'0366746181',
 
 });
-//console.log(new_user);
-new_user.validate((error)=>{
-    
-    if(error){
-        console.log('Lỗi validate:: ', error.errors);
-    }else{
-        new_user.save().then(()=>{
-                console.log('User saved');
-        }).catch(err=> console.log('erro save:: '+err))   
-    }
-})
+// const hashedPasswordPromise = require('./helpers/create.pass');
+//  hashedPasswordPromise('123123123',10).then(has=>{
+//     console.log(has);
+//     new_user.pass  = has;
+
+
+//     console.log(new_user);
+//     new_user.validate((error)=>{
+        
+//         if(error){
+//             console.log('Lỗi validate:: ', error.errors);
+//         }else{
+
+//             new_user.save().then(()=>{
+//                     console.log('User saved');
+//             }).catch(err=> console.log('erro save:: '+err))   
+//         }
+//     })
+
+// });
 
 const { checkOverload }  = require('./helpers/check.connect')
 checkOverload();

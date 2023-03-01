@@ -1,5 +1,5 @@
 'user strick'
-//require('dotenv').config();
+require('dotenv').config();
  // read file env
 // dotenv.config();
 // process.env.NODE_ENV = process.env.NODE_ENV || 'development';
